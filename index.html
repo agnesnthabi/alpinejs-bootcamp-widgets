@@ -7,41 +7,74 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.8.2/dist/alpine.min.js" defer></script>
     <script src="greet.js" defer></script>
-    <script src="transport fee.js" defer></script>
+    <script src="transportFee.js" defer></script>
     <script src="totalphonebill.js" defer></script>
     <script src="enoughairtime.js" defer></script>
 </head>
-<body>
+<body class="body">
     <div class="container">
         <h1>Alpine.js Bootcamp Widgets</h1>
         <div class="grid">
-            <!-- Greet Widget -->
-            <div class="widget" x-data="{ name: 'Coder', message: greet('Coder') }">
+            <div class="widget" x-data="{ name: '', lang: 'Hello', greeting: '' }">
                 <h2>Greet Widget</h2>
-                <p x-text="message"></p>
-                <input type="text" x-model="name" @input="message = greet(name)" placeholder="Enter your name">
+                <label for="name">Enter your name:</label>
+                <input type="text" x-model="name" placeholder="Enter your name">
+                
+                <div class="selectlang">
+                    <select x-model="lang">
+                        <option value="Hello">English</option>
+                        <option value="Hola">Spanish</option>
+                        <option value="Dumela">Sepedi</option>
+                        <option value="Hallo">German</option>
+                    </select>
+                <label for="language">language:</label>
+                </div>
+                <button x-on:click="greeting = greet(name, lang)">Greet</button>
+                <p class="message" x-text="greeting"></p>
+                <button x-on:click="greeting = ''">Clear</button>
             </div>
 
-            <!-- Widget 1 -->
-            <div class="widget" x-data="widget1()">
-                <h2>Widget 1</h2>
-                <p x-text="message"></p>
-                <button @click="updateMessage()">Click me</button>
-            </div>
-
-            <!-- Widget 2 -->
-            <div class="widget" x-data="widget2()">
-                <h2>Widget 2</h2>
-                <p x-text="count"></p>
-                <button @click="increment()">Increment</button>
-                <button @click="decrement()">Decrement</button>
-            </div>
-
-            <!-- Widget 3 -->
-            <div class="widget" x-data="widget3()">
-                <h2>Widget 3</h2>
-                <p x-text="currentTime"></p>
-                <button @click="updateTime()">Update Time</button>
+           
+                <div class="widget">
+                  <h2>Enough Airtime Widget</h2>
+                  <div x-data="{
+                       projectedUsage:'',
+                       availAirtime: '',
+                       remainingAirtime:''}">
+                    <label for="projected-usage">Projected Usage:</label>
+                    <input type="text" id="projected-usage" x-model="projectedUsage" placeholder="call,sms,data">
+                    <br>
+                    <label for="avail-airtime">Available Balance:</label>
+                    <input type="number" id="avail-airtime" x-model="availAirtime" >
+                    <br>
+                    <button x-on:click="remainingAirtime = calculateRemainingAirtime(projectedUsage, availAirtime)">
+                      Calculate
+                    </button>
+                    <p class="message" x-text="'Remaining Amount: ' + remainingAirtime"></p>
+                  </div>
+                
+                    <h1>Total Phone Bill Widget</h1>
+                    <div class="input-section">
+                        <label for="phoneString">Enter phone bill item:</label>
+                        <input type="text" id="phoneString" placeholder="E.g., call, sms, call, sms">
+                        <button id="calculateBtn">Calculate Total</button>
+                    </div>
+                    <div id="result" class="result-section">
+                    </div>
+                
+            <div class="widget" x-data="{ shift: '', message: 'No shift' }">
+                <h2>Shift Widget</h2>
+                <p>Select your shift:</p>
+                <label>
+                    <input type="radio" x-model="shift" value="morning" @change="message = transportFee(shift)"> Morning
+                </label>
+                <label>
+                    <input type="radio" x-model="shift" value="afternoon" @change="message = transportFee(shift)"> Afternoon
+                </label>
+                <label>
+                    <input type="radio" x-model="shift" value="nightshift" @change="message = transportFee(shift)"> Nightshift
+                </label>
+                <p>Shift fee: <span x-text="message"></span></p>
             </div>
         </div>
     </div>
