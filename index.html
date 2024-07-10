@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine.js Bootcamp Widgets</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.8.2/dist/alpine.min.js" defer></script>
+    <script src="greet.js" defer></script>
+    <script src="transport fee.js" defer></script>
+    <script src="totalphonebill.js" defer></script>
+    <script src="enoughairtime.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Alpine.js Bootcamp Widgets</h1>
+        <div class="grid">
+            <!-- Greet Widget -->
+            <div class="widget" x-data="{ name: 'Coder', message: greet('Coder') }">
+                <h2>Greet Widget</h2>
+                <p x-text="message"></p>
+                <input type="text" x-model="name" @input="message = greet(name)" placeholder="Enter your name">
+            </div>
+
+            <!-- Widget 1 -->
+            <div class="widget" x-data="widget1()">
+                <h2>Widget 1</h2>
+                <p x-text="message"></p>
+                <button @click="updateMessage()">Click me</button>
+            </div>
+
+            <!-- Widget 2 -->
+            <div class="widget" x-data="widget2()">
+                <h2>Widget 2</h2>
+                <p x-text="count"></p>
+                <button @click="increment()">Increment</button>
+                <button @click="decrement()">Decrement</button>
+            </div>
+
+            <!-- Widget 3 -->
+            <div class="widget" x-data="widget3()">
+                <h2>Widget 3</h2>
+                <p x-text="currentTime"></p>
+                <button @click="updateTime()">Update Time</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
