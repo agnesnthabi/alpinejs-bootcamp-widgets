@@ -44,7 +44,7 @@
                     <label for="projected-usage">Projected Usage:</label>
                     <input type="text" id="projected-usage" x-model="projectedUsage" placeholder="call,sms,data">
                     <br>
-                    <label for="avail-airtime">Available Balance:</label>
+                    <label for="avail-airtime">Available Balance R:</label>
                     <input type="number" id="avail-airtime" x-model="availAirtime" >
                     <br>
                     <button x-on:click="remainingAirtime = calculateRemainingAirtime(projectedUsage, availAirtime)">
