@@ -21,13 +21,13 @@
                 <input type="text" x-model="name" placeholder="Enter your name">
                 
                 <div class="selectlang">
+                    <label for="language">Language:</label>
                     <select x-model="lang">
                         <option value="Hello">English</option>
                         <option value="Hola">Spanish</option>
                         <option value="Dumela">Sepedi</option>
                         <option value="Hallo">German</option>
                     </select>
-                <label for="language">language:</label>
                 </div>
                 <button x-on:click="greeting = greet(name, lang)">Greet</button>
                 <p class="message" x-text="greeting"></p>
@@ -53,7 +53,8 @@
                     <p class="message" x-text="'Remaining Amount: ' + remainingAirtime"></p>
                   </div>
                 
-                    <h1>Total Phone Bill Widget</h1>
+                  <div class="widget">
+                    <h2>Total Phone Bill Widget</h2>
                     <div class="input-section">
                         <label for="phoneString">Enter phone bill item:</label>
                         <input type="text" id="phoneString" placeholder="E.g., call, sms, call, sms">
@@ -61,22 +62,26 @@
                     </div>
                     <div id="result" class="result-section">
                     </div>
+                  </div>
+                   
+                <div class="widget">
+                    <h2>Transport Fee Widget</h2>
+                    <div x-data="transportFeeWidget">
+                        <p>Select your shift:</p>
+                        <label>
+                            <input type="radio" name="shift" value="morning" x-model="selectedShift"> Morning
+                        </label>
+                        <label>
+                            <input type="radio" name="shift" value="afternoon" x-model="selectedShift"> Afternoon
+                        </label>
+                        <label>
+                            <input type="radio" name="shift" value="nightshift" x-model="selectedShift"> Night Shift
+                        </label>
                 
-            <div class="widget" x-data="{ shift: '', message: 'No shift' }">
-                <h2>Shift Widget</h2>
-                <p>Select your shift:</p>
-                <label>
-                    <input type="radio" x-model="shift" value="morning" @change="message = transportFee(shift)"> Morning
-                </label>
-                <label>
-                    <input type="radio" x-model="shift" value="afternoon" @change="message = transportFee(shift)"> Afternoon
-                </label>
-                <label>
-                    <input type="radio" x-model="shift" value="nightshift" @change="message = transportFee(shift)"> Nightshift
-                </label>
-                <p>Shift fee: <span x-text="message"></span></p>
-            </div>
-        </div>
+                        <p>Transport Fee: <span x-text="transportFee(selectedShift)"></span></p>
+                    </div>
+                </div>
+                  
     </div>
 </body>
 </html>

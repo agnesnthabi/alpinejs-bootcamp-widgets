@@ -5,7 +5,7 @@
     border: 1px solid plum;
     border-radius: 10px;
     background-color:palevioletred;
-    box-shadow: 0 0 10px rgba(187, 30, 153, 0.1); /* Subtle shadow */
+    box-shadow: 0 0 10px rgba(187, 30, 153, 0.1); 
 }
 
 .body {
