@@ -8,14 +8,18 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.8.2/dist/alpine.min.js" defer></script>
     <script src="greet.js" defer></script>
     <script src="transportFee.js" defer></script>
-    <script src="totalphonebill.js" defer></script>
-    <script src="enoughairtime.js" defer></script>
+    <script src="totalphonebill.js" ></script>
+    <script src="enoughairtime.js" ></script>
+
+    
 </head>
+
+
 <body class="body">
     <div class="container">
         <h1>Alpine.js Bootcamp Widgets</h1>
         <div class="grid">
-            <div class="widget" x-data="{ name: '', lang: 'Hello', greeting: '' }">
+            <div class="widget" x-data="{ name: '', lang: 'Hello', greeting: '', error: '' }">
                 <h2>Greet Widget</h2>
                 <label for="name">Enter your name:</label>
                 <input type="text" x-model="name" placeholder="Enter your name">
@@ -29,44 +33,47 @@
                         <option value="Hallo">German</option>
                     </select>
                 </div>
-                <button x-on:click="greeting = greet(name, lang)">Greet</button>
+                <button x-on:click="greeting = validateAndGreet(name, lang, error)">Greet</button>
                 <p class="message" x-text="greeting"></p>
-                <button x-on:click="greeting = ''">Clear</button>
+                <button x-on:click="greeting = ''; error = ''">Clear</button>
+                <p class="error" x-text="error" style="color: red;"></p>
             </div>
+            
 
            
                 <div class="widget">
                   <h2>Enough Airtime Widget</h2>
-                  <div x-data="{
-                       projectedUsage:'',
-                       availAirtime: '',
-                       remainingAirtime:''}">
+                  <div x-data="airtimeCalculator()">
                     <label for="projected-usage">Projected Usage:</label>
-                    <input type="text" id="projected-usage" x-model="projectedUsage" placeholder="call,sms,data">
+                    <input type="text" id="projected-usage" x-model="projectedUsage" placeholder="call,call,data,sms">
                     <br>
                     <label for="avail-airtime">Available Balance R:</label>
-                    <input type="number" id="avail-airtime" x-model="availAirtime" >
+                    <input type="number" id="avail-airtime" x-model="availAirtime">
                     <br>
-                    <button x-on:click="remainingAirtime = calculateRemainingAirtime(projectedUsage, availAirtime)">
-                      Calculate
+                    <button @click="remainingAirtime = enoughAirtime(projectedUsage, availAirtime)">
+                        Calculate
                     </button>
-                    <p class="message" x-text="'Remaining Amount: ' + remainingAirtime"></p>
-                  </div>
+                    <p class="message" x-text="'Remaining Amount: R' + remainingAirtime"></p>
+                </div>
+            
                 
-                  <div class="widget">
-                    <h2>Total Phone Bill Widget</h2>
-                    <div class="input-section">
-                        <label for="phoneString">Enter phone bill item:</label>
-                        <input type="text" id="phoneString" placeholder="E.g., call, sms, call, sms">
-                        <button id="calculateBtn">Calculate Total</button>
+                <div x-data="phoneBillCalculator()">
+                    <div class="widget">
+                        <h2>Total Phone Bill Widget</h2>
+                        <div class="input-section">
+                            <label for="phoneString">Enter phone bill items:</label>
+                            <input type="text" id="phoneString" x-model="phoneString" placeholder="E.g., call, sms, call, sms">
+                            <button @click="calculateTotalBill">Calculate Total</button>
+                        </div>
+                        <div id="result" class="result-section">
+                            <p x-text="'Total Bill: ' + totalBill"></p>
+                        </div>
                     </div>
-                    <div id="result" class="result-section">
-                    </div>
-                  </div>
+                </div>
                    
                 <div class="widget">
                     <h2>Transport Fee Widget</h2>
-                    <div x-data="transportFeeWidget">
+                    <div x-data="transportFeeWidget()">
                         <p>Select your shift:</p>
                         <label>
                             <input type="radio" name="shift" value="morning" x-model="selectedShift"> Morning
@@ -78,10 +85,10 @@
                             <input type="radio" name="shift" value="nightshift" x-model="selectedShift"> Night Shift
                         </label>
                 
-                        <p>Transport Fee: <span x-text="transportFee(selectedShift)"></span></p>
+                        <p>Transport Fee: <span x-text="transportFee"></span></p>
                     </div>
                 </div>
-                  
-    </div>
+                
+                </div>
 </body>
 </html>

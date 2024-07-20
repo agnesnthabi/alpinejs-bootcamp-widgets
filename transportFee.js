@@ -1,7 +1,10 @@
 function transportFeeWidget() {
     return {
         selectedShift: '',
-        transportFee(shift) {
+        get transportFee() {
+            return this.calculateTransportFee(this.selectedShift);
+        },
+        calculateTransportFee(shift) {
             switch(shift) {
                 case 'morning':
                     return 'R20';

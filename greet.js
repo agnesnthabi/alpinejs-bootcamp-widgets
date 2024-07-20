@@ -3,14 +3,15 @@ function greet(name, lang) {
         Hello: 'Hello',
         Hola: 'Hola',
         Dumela: 'Dumela',
-        Halo: 'Hallo',
-
+        Hallo: 'Hallo',
     };
     return `${greetings[lang]}, ${name}`;
 }
 
-// Test the function
-function greet(Name, lang) {
-
-    return lang+', ' + Name;
+function validateAndGreet(name, lang) {
+    const regex = /^[a-zA-Z\s]+$/;
+    if (!regex.test(name)) {
+        return 'Please enter a valid name.';
+    }
+    return greet(name, lang);
 }

@@ -1,13 +1,13 @@
-function calculateRemainingAirtime(projectedUsage, availAirtime) {
-    let usage = projectedUsage.split(', ');
+function enoughAirtime(projectedUsage, availAirtime) {
+    let usage = projectedUsage.split(',');
     let totalUsage = 0;
 
     for (let i = 0; i < usage.length; i++) {
-        if (usage[i] === 'call') {
+        if (usage[i].trim() === 'call') {
             totalUsage += 1.88;
-        } else if (usage[i] === 'sms') {
+        } else if (usage[i].trim() === 'sms') {
             totalUsage += 0.75;
-        } else if (usage[i] === 'data') {
+        } else if (usage[i].trim() === 'data') {
             totalUsage += 12;
         }
     }
@@ -20,14 +20,18 @@ function calculateRemainingAirtime(projectedUsage, availAirtime) {
         remainingAirtime = 0;
     }
 
-    return 'R' + remainingAirtime.toFixed(2);
+    return remainingAirtime.toFixed(2);
 }
 
-document.getElementById('calculateBtn').addEventListener('click', function() {
-    const projectedUsage = document.getElementById('usage').value;
-    const availAirtime = parseFloat(document.getElementById('airtime').value);
+function airtimeCalculator() {
+    return {
+        projectedUsage: '',
+        availAirtime: '',
+        remainingAirtime: '',
+        enoughAirtime
+    };
+}
 
-    const result = calculateRemainingAirtime(projectedUsage, availAirtime);
-    document.getElementById('result').textContent = 'Remaining Airtime: ' + result;
-});
-
+document.addEventListener('alpine:init', function(){
+    Alpine.data('enoughAirtime',enoughAirtime)
+})
